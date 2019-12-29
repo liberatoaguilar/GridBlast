@@ -247,19 +247,19 @@ class Enemy:
             self.badpath[1].append(addy+self.y)
             for x in range(10):
                 self.direction = random.randint(0,3)
-                if self.direction == 0 and addy <= 20 and self.y+20 < 380 and check_blocks_above(blocks, self.y+addy, self.x+addx) == False:
+                if self.direction == 0 and addy <= 20 and self.y+20 < 380 and check_blocks_above(blocks, self.y+addy, self.x+addx) == False and self.y+addy >= self.y-40 and self.x+addx >= self.x-40:
                     addy += 20
                     self.badpath[0].append(addx+self.x)
                     self.badpath[1].append(addy+self.y)
-                if self.direction == 1 and addy <= 20 and self.y-20 > 20 and check_blocks_below(blocks, self.y+addy, self.x+addx) ==  False:
+                if self.direction == 1 and addy <= 20 and self.y-20 > 20 and check_blocks_below(blocks, self.y+addy, self.x+addx) ==  False and self.y+addy >= self.y-40 and self.x+addx >= self.x-40:
                     addy -= 20
                     self.badpath[0].append(addx+self.x)
                     self.badpath[1].append(addy+self.y)
-                if self.direction == 2 and addx <= 20 and self.x+20 < 380 and check_blocks_right(blocks, self.x+addx, self.y+addy) == False:
+                if self.direction == 2 and addx <= 20 and self.x+20 < 380 and check_blocks_right(blocks, self.x+addx, self.y+addy) == False and self.y+addy >= self.y-40 and self.x+addx >= self.x-40:
                     addx += 20
                     self.badpath[0].append(addx+self.x)
                     self.badpath[1].append(addy+self.y)
-                if self.direction == 3 and addx <= 20 and self.x-20 > 20 and check_blocks_left(blocks, self.x+addx, self.y+addy) == False:
+                if self.direction == 3 and addx <= 20 and self.x-20 > 20 and check_blocks_left(blocks, self.x+addx, self.y+addy) == False and self.y+addy >= self.y-40 and self.x+addx >= self.x-40:
                     addx -= 20
                     self.badpath[0].append(addx+self.x)
                     self.badpath[1].append(addy+self.y)
