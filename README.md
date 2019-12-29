@@ -1,8 +1,8 @@
-## GridBlast
+# GridBlast
 
 This is the repository for GridBlast, a strategic simple game.
 
-# Controls
+## Controls
 
 Use arrow keys to draw yellow path that the player will follow.
 Click space to follow the path.
@@ -14,3 +14,9 @@ Use arrow keys to choose which direction to shoot and click space to shoot.
 The aim of the game is to see how many opponents can be defeated.
 
 The player cannot cross over the brown blocks.
+
+## More Info
+
+GridBlast is programmed using python and pygame
+
+This is my first repo :)
