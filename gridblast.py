@@ -46,6 +46,7 @@ text = font.render(str(score), True, black, white)
 textRect = text.get_rect()
 textRect.center = (screenbounds / 2, screenbounds / 8)
 
+
 #Functions
 def draw_grid():
     for x in range(22):
