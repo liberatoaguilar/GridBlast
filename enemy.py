@@ -2,6 +2,7 @@ import pygame
 import random
 import block
 
+#Checks if on block
 def check_on_block(blocks,xcoords,ycoords):
     touching = False
     for x in range(len(blocks)):
@@ -11,6 +12,7 @@ def check_on_block(blocks,xcoords,ycoords):
             pass
     return touching
 
+#Fake Blocks to test if badguy is on block
 blocks = []
 
 #Top Left Cross
@@ -238,6 +240,9 @@ class Enemy:
                         self.badpath[1].append(addy+self.y)
             self.x += addx
             self.y += addy
+
+            ## TODO: Use badpath[0][-1] so badguy doesn't go out of bounds
+            #Checks if on block and moves away
             if check_on_block(blocks,self.x,self.y):
                 if self.direction == 0 and self.x+40 >= self.badpath[0][0]:
                     self.x+=20

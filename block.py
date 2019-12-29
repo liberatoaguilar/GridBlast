@@ -27,7 +27,8 @@ class Block:
             return False
     def redraw(self):
         pygame.draw.rect(self.screen, (92,0,0), pygame.Rect(self.locationx,self.locationy,20,20))
-
+        
+#Fake Block (Doesn't draw it)
 class FBlock:
     def __init__(self, locationx, locationy):
         self.locationx = locationx

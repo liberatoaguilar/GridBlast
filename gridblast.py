@@ -48,6 +48,8 @@ textRect.center = (screenbounds / 2, screenbounds / 8)
 
 
 #Functions
+
+#Draws grid
 def draw_grid():
     for x in range(22):
         for i in range(22):
@@ -62,13 +64,19 @@ def draw_grid():
             pygame.draw.rect(screen, color, pygame.Rect(((i-1)*20),((x-1)*20),20,20))
             screen.blit(text,textRect)
 
+
+#Draws player
 def player(px, py):
     boundsx = px-60
     boundsy = py-60
     return pygame.draw.rect(screen, blue, pygame.Rect(boundsx,boundsy,140,140)) and pygame.draw.rect(screen, red, pygame.Rect(px,py,20,20))
+
+#Draws brown blocks
 def draw_blocks(blocks):
     for x in blocks:
         x.redraw()
+
+#Checks if blocks are next to path
 def check_blocks_right(blocks,xcoords,ycoords):
     touching = False
     for x in range(len(blocks)):
@@ -102,6 +110,7 @@ def check_blocks_below(blocks,ycoords,xcoords):
             pass
     return touching
 
+#Check if shot
 def check_shot(px,py,badguy,direction):
     total = 0
     if direction == "up":
@@ -182,6 +191,7 @@ def check_shot(px,py,badguy,direction):
             total += 20
     return total
 
+#Game over screen
 def gameover():
     for x in range(22):
         for i in range(22):
@@ -309,12 +319,14 @@ screen.blit(text,textRect)
 while not done:
     screen.blit(text,textRect)
     pygame.display.update()
+    #If bad guy dies
     if badguy.health <= 0:
         randome = random.randint(0,20)
         randome = randome*20
         badguy = enemy.Enemy(100,randome,randome,screen,0)
         score += 1
         text = font.render(str(score), True, black, white)
+    #If player dies
     if playerhealth >= 50:
         gameover()
         break
@@ -408,6 +420,7 @@ while not done:
             pygame.draw.rect(screen, blue, pygame.Rect(px,py,20,20))
         draw_blocks(blocks)
         pressed = pygame.key.get_pressed()
+        #Shoots and tells badguy to move
         if pressed[pygame.K_SPACE]:
             shooting = False
             drawpath = False
@@ -421,7 +434,7 @@ while not done:
             if badguy.health > 0:
                 badguy.move()
                 badmove = True
-
+        #Draws orange shots
         if pressed[pygame.K_DOWN]:
             draw_grid()
             badguy.redraw()
@@ -491,6 +504,7 @@ while not done:
             badguy.redraw_enemy()
             draw_blocks(blocks)
     elif badmove == True and tracebadguy == False and shootbadguy == False:
+        #Bad guy draw path
         draw_grid()
         pygame.draw.rect(screen, (0,187,193), pygame.Rect(badguy.badpath[0][0]-60, badguy.badpath[1][0]-60,140,140))
         pygame.draw.rect(screen, (118,0,138), pygame.Rect(badguy.badpath[0][0],badguy.badpath[1][0],20,20))
@@ -510,6 +524,7 @@ while not done:
             badmove = False
             tracebadguy = True
     elif tracebadguy == True and shootbadguy == False:
+        #Trace bad guy path and move
         if len(badguy.badpath[0]) > 0 or badguy.badpath[0] != None:
             draw_grid()
             try:
@@ -551,6 +566,7 @@ while not done:
                 tracebadguy = False
                 shootbadguy = True
     elif shootbadguy == True:
+        #Bad guy detects where to shoot and shoots
         xdiff = px-badguy.x
         ydiff = py-badguy.y
         if xdiff <= 0 and ydiff <= 0:
