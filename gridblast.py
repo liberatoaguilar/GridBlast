@@ -315,7 +315,7 @@ while not done:
         badguy = enemy.Enemy(100,randome,randome,screen,0)
         score += 1
         text = font.render(str(score), True, black, white)
-    if playerhealth >= 10:
+    if playerhealth >= 50:
         gameover()
         break
     counter += 1
