@@ -42,9 +42,16 @@ badshotdir = "none"
 randome = 0
 score = 0
 font = pygame.font.Font('freesansbold.ttf', 32)
+font2 = pygame.font.Font('freesansbold.ttf', 15)
 text = font.render(str(score), True, black, white)
 textRect = text.get_rect()
 textRect.center = (screenbounds / 2, screenbounds / 8)
+playertext = font2.render("Player: "+str(100-playerhealth), True, black, white)
+playertextRect = playertext.get_rect()
+playertextRect.center = (screenbounds / 4, 15)
+Enemytext = font2.render("Enemy: "+str(100), True, black, white)
+EnemytextRect = Enemytext.get_rect()
+EnemytextRect.center = (-20,-20)
 
 
 #Functions
@@ -63,13 +70,14 @@ def draw_grid():
                 color = darkgreen
             pygame.draw.rect(screen, color, pygame.Rect(((i-1)*20),((x-1)*20),20,20))
             screen.blit(text,textRect)
-
+            screen.blit(playertext,playertextRect)
+            screen.blit(Enemytext,EnemytextRect)
 
 #Draws player
 def player(px, py):
     boundsx = px-60
     boundsy = py-60
-    return pygame.draw.rect(screen, blue, pygame.Rect(boundsx,boundsy,140,140)) and pygame.draw.rect(screen, red, pygame.Rect(px,py,20,20))
+    return pygame.draw.rect(screen, blue, pygame.Rect(boundsx,boundsy,140,140)) and pygame.draw.rect(screen, red, pygame.Rect(px,py,20,20)) and screen.blit(text,textRect) and screen.blit(playertext,playertextRect) and screen.blit(Enemytext,EnemytextRect)
 
 #Draws brown blocks
 def draw_blocks(blocks):
@@ -312,12 +320,21 @@ if blockson:
 
 #Enemy
 badguy = enemy.Enemy(100,300,300,screen,0)
+Enemytext = font2.render("Enemy: "+str(badguy.health), True, black, white)
+EnemytextRect = Enemytext.get_rect()
+EnemytextRect.center = ((screenbounds / 4)*3, 15)
 player(px, py)
 draw_blocks(blocks)
 screen.blit(text,textRect)
+screen.blit(playertext,playertextRect)
+screen.blit(Enemytext,EnemytextRect)
 #Actual Game
 while not done:
+    Enemytext = font2.render("Enemy: "+str(badguy.health), True, black, white)
+
     screen.blit(text,textRect)
+    screen.blit(playertext,playertextRect)
+    screen.blit(Enemytext,EnemytextRect)
     pygame.display.update()
     #If bad guy dies
     if badguy.health <= 0:
@@ -333,7 +350,7 @@ while not done:
         break
     counter += 1
     #Keys
-    
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
@@ -384,6 +401,9 @@ while not done:
                 pygame.draw.rect(screen, yellow, pygame.Rect(path[0][x],path[1][x],20,20))
             else:
                 pygame.draw.rect(screen, blue, pygame.Rect(path[0][x],path[1][x],20,20))
+            screen.blit(text,textRect)
+            screen.blit(playertext,playertextRect)
+            screen.blit(Enemytext,EnemytextRect)
         pygame.draw.rect(screen, red, pygame.Rect(px,py,20,20))
 
     #Space Pressed
@@ -393,6 +413,9 @@ while not done:
         pygame.draw.rect(screen, blue, pygame.Rect(path[0][0]-60,path[1][0]-60,140,140))
         pygame.draw.rect(screen, red, pygame.Rect(path[0][0],path[1][0],20,20))
         badguy.redraw_enemy()
+        screen.blit(text,textRect)
+        screen.blit(playertext,playertextRect)
+        screen.blit(Enemytext,EnemytextRect)
         draw_blocks(blocks)
         if path[0][0] == badguy.x and path[1][0] == badguy.y:
             badguy.losehealth(10)
@@ -406,6 +429,9 @@ while not done:
             player(xcoords,ycoords)
             badguy.redraw_enemy()
             draw_blocks(blocks)
+            screen.blit(text,textRect)
+            screen.blit(playertext,playertextRect)
+            screen.blit(Enemytext,EnemytextRect)
         try:
             path[0].pop(0)
             path[1].pop(0)
@@ -547,6 +573,8 @@ while not done:
             try:
                 if badguy.badpath[0][0] == px and badguy.badpath[1][0] == py:
                     playerhealth += 10
+                    playertext = font2.render("Player: "+str(100-playerhealth), True, black, white)
+                    pygame.display.update()
                 if badguy.badpath[0][0] == badguy.x and badguy.badpath[1][0] == badguy.y:
                     draw_grid()
                     badguy.redraw()
@@ -604,6 +632,8 @@ while not done:
             pygame.draw.rect(screen, orange, pygame.Rect(badguy.x+40,badguy.y-60,20,20))
             pygame.draw.rect(screen, red, pygame.Rect(px,py,20,20))
             playerhealth += check_shot(px,py,badguy,badshotdir)
+            playertext = font2.render("Player: "+str(100-playerhealth), True, black, white)
+            pygame.display.update()
         elif badshotdir == "down":
             pygame.draw.rect(screen, orange, pygame.Rect(badguy.x,badguy.y+20,20,20))
             pygame.draw.rect(screen, orange, pygame.Rect(badguy.x,badguy.y+40,20,20))
@@ -616,6 +646,8 @@ while not done:
             pygame.draw.rect(screen, orange, pygame.Rect(badguy.x+40,badguy.y+60,20,20))
             pygame.draw.rect(screen, red, pygame.Rect(px,py,20,20))
             playerhealth += check_shot(px,py,badguy,badshotdir)
+            playertext = font2.render("Player: "+str(100-playerhealth), True, black, white)
+            pygame.display.update()
         elif badshotdir == "right":
             pygame.draw.rect(screen, orange, pygame.Rect(badguy.x+20,badguy.y,20,20))
             pygame.draw.rect(screen, orange, pygame.Rect(badguy.x+40,badguy.y+20,20,20))
@@ -628,6 +660,8 @@ while not done:
             pygame.draw.rect(screen, orange, pygame.Rect(badguy.x+60,badguy.y+40,20,20))
             pygame.draw.rect(screen, red, pygame.Rect(px,py,20,20))
             playerhealth += check_shot(px,py,badguy,badshotdir)
+            playertext = font2.render("Player: "+str(100-playerhealth), True, black, white)
+            pygame.display.update()
         elif badshotdir == "left":
             pygame.draw.rect(screen, orange, pygame.Rect(badguy.x-20,badguy.y,20,20))
             pygame.draw.rect(screen, orange, pygame.Rect(badguy.x-40,badguy.y+20,20,20))
@@ -640,6 +674,8 @@ while not done:
             pygame.draw.rect(screen, orange, pygame.Rect(badguy.x-60,badguy.y+40,20,20))
             pygame.draw.rect(screen, red, pygame.Rect(px,py,20,20))
             playerhealth += check_shot(px,py,badguy,badshotdir)
+            playertext = font2.render("Player: "+str(100-playerhealth), True, black, white)
+            pygame.display.update()
         shootbadguy = False
     pygame.display.flip()
     clock.tick(13)
