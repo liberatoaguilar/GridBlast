@@ -323,11 +323,12 @@ while not done:
     if badguy.health <= 0:
         randome = random.randint(0,20)
         randome = randome*20
+        ## TODO: Randome can't be on a block
         badguy = enemy.Enemy(100,randome,randome,screen,0)
         score += 1
         text = font.render(str(score), True, black, white)
     #If player dies
-    if playerhealth >= 50:
+    if playerhealth >= 100:
         gameover()
         break
     counter += 1
