@@ -182,6 +182,25 @@ def check_shot(px,py,badguy,direction):
             total += 20
     return total
 
+def gameover():
+    for x in range(22):
+        for i in range(22):
+            if i % 2 == 0 and x % 2 == 0:
+                color = (209, 81, 59)
+            elif i % 2 != 0 and x % 2 == 0:
+                color = (168, 24, 0)
+            elif i % 2 == 0 and x % 2 != 0:
+                color = (168, 24, 0)
+            else:
+                color = (209, 81, 59)
+            pygame.draw.rect(screen, color, pygame.Rect(((i-1)*20),((x-1)*20),20,20))
+            losetext = font.render("Game Over", True, black, white)
+            textRectlose = losetext.get_rect()
+            textRectlose.center = (screenbounds / 2, screenbounds / 2)
+            screen.blit(losetext,textRectlose)
+    pygame.display.update()
+    pygame.time.wait(1000)
+
 #Starting Grid and Starting Player and Blocks
 draw_grid()
 player(px, py)
@@ -296,7 +315,8 @@ while not done:
         badguy = enemy.Enemy(100,randome,randome,screen,0)
         score += 1
         text = font.render(str(score), True, black, white)
-    if playerhealth >= 50:
+    if playerhealth >= 10:
+        gameover()
         break
     counter += 1
     #Keys
