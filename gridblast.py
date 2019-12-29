@@ -333,6 +333,7 @@ while not done:
         break
     counter += 1
     #Keys
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
