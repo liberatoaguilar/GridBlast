@@ -339,8 +339,13 @@ while not done:
     #If bad guy dies
     if badguy.health <= 0:
         randome = random.randint(0,20)
+        if randome == 3:
+            randome += 1
+        if randome == 10:
+            randome += 1
+        if randome == 17:
+            randome += 1
         randome = randome*20
-        ## TODO: Randome can't be on a block
         badguy = enemy.Enemy(100,randome,randome,screen,0)
         score += 1
         text = font.render(str(score), True, black, white)
