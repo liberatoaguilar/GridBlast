@@ -201,6 +201,9 @@ def check_shot(px,py,badguy,direction):
 
 #Game over screen
 def gameover():
+    text = font.render("Final Score: "+str(score), True, black, white)
+    textRect = text.get_rect()
+    textRect.center = (screenbounds / 2, screenbounds / 8)
     for x in range(22):
         for i in range(22):
             if i % 2 == 0 and x % 2 == 0:
@@ -216,6 +219,7 @@ def gameover():
             textRectlose = losetext.get_rect()
             textRectlose.center = (screenbounds / 2, screenbounds / 2)
             screen.blit(losetext,textRectlose)
+            screen.blit(text,textRect)
     pygame.display.update()
     pygame.time.wait(1000)
 
