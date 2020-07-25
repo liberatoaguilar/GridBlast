@@ -20,3 +20,5 @@ The player cannot cross over the brown blocks.
 GridBlast is programmed using python and pygame
 
 This is my first repo :)
+
+![image](https://raw.githubusercontent.com/liberatoaguilar/GridBlast/master/Image.png)
