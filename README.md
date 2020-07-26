@@ -1,5 +1,7 @@
 # GridBlast
 
+- Created December 2019
+
 This is the repository for GridBlast, a strategic simple game.
 
 ## Controls
