@@ -356,6 +356,7 @@ while not done:
     #If player dies
     if playerhealth >= 100:
         gameover()
+        import gridblast
         break
     counter += 1
     #Keys
